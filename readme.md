@@ -2,7 +2,7 @@
 
 This is a PWA convergence of my C# code snippets built over the years to work with Unicode and Unicode fonts. The original code is based on several [LINQPad](https://www.linqpad.net/) C# snippets. This application uses [Microsoft's own (excellent) Cascadia Code font](https://github.com/microsoft/cascadia-code); for both the uesr interface and for the rendering of the code points.
 
-You can try this application from here:  [Azure Static Apps](https://calm-desert-06cb87310.azurestaticapps.net/)
+You can try this application from here:  [Azure Static Apps](https://green-water-0d096c610.azurestaticapps.net)
 
 Some of the things I find myself doing frequently is:
 * Looking for the Unicode values for box elements.
