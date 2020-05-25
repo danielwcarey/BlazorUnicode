@@ -1,6 +1,7 @@
 ﻿@inject UnicodeCharacterDatabase db
 @{
-    var columns = Enumerable.Range(StartCode, ColumnCount);
+    var columnStart = StartCode >> 4;
+    var columns = Enumerable.Range(columnStart, ColumnCount);
 }
 <table class="UTable">
     <thead>

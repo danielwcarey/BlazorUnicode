@@ -1,11 +1,12 @@
 ﻿@page "/"
+@page "/browse"
 @using System.Globalization
-@inject UnicodeCharacterDatabase db
+<h3>Browse</h3>
 @if (ShowInput) {
     <form>
         <div class="form-group">
             <label for="startCode">Start Code (hexadecimal)</label>
-            <input type="text" class="form-control" id="startCode" placeholder="250 - Hexvalue" @bind="@StartCode" />
+            <input type="text" class="form-control" id="startCode" placeholder="2500 - Hexvalue" @bind="@StartCode" />
         </div>
         <div class="form-group">
             <label for="columnCount">Column Count</label>
@@ -42,7 +43,7 @@
 
     private bool ShowInput { get; set; } = true;
 
-    private string StartCode { get; set; } = "250";
+    private string StartCode { get; set; } = "2500";
     private int StartCodeInt { get; set; }
     private int ColumnCount { get; set; } = 8;
     private string Title { get; set; } = "";
