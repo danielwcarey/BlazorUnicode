@@ -19,19 +19,19 @@ Here are some useful links and tools:
 
 ## Screenshots
 The Main Page
-![](docs/Image1.png)
+![](Image1.png)
 
 Browsing the Arrows
-![](docs/Image2.png)
+![](Image2.png)
 
 Browsing from the Code Point 2500
-![](docs/Image3.png)
+![](Image3.png)
 
 Example Search for 'angle'
-![](docs/Image4.png)
+![](Image4.png)
 
 Browsing Map Symbols
-![](docs/Image5.png)
+![](Image5.png)
 
 Browsing Emoticons
-![](docs/Image6.png)
+![](Image6.png)
