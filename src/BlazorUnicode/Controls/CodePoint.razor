@@ -1,0 +1,27 @@
+﻿@inject UnicodeCharacterDatabase db
+@{
+    var character = Char.ConvertFromUtf32(Code); // Allows for utf-16 code units
+    var uc = db[Code];
+}
+@if (ShowUnicodeName) {
+    <div class="UData">
+        <span class='ULetter'>@character</span>
+        <span class="UCode">@($"{Code:X}")</span>
+        <span class='UName'>@uc.RangeName</span>
+        <span class='UName'>@uc.Name</span>
+    </div>
+} else {
+    <div class="UData">
+        <span class='ULetter'>&#160;@(character)&#160;</span>
+        <span class="UCode">@($"{Code:X}")</span>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public int Code { get; set; }
+
+    [Parameter]
+    public bool ShowUnicodeName { get; set; } = true;
+}

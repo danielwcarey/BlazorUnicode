@@ -1,7 +1,16 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+@font-face {
+    font-family: "CascadiaCode";
+    src: url('/css/fonts/CascadiaCodePL.woff2');
+}
+@font-face {
+    font-family: "CascadiaCodeMono";
+    src: url('/css/fonts/CascadiaCodeMonoPL.woff2');
+}
+
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: CascadiaCode, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 a, .btn-link {

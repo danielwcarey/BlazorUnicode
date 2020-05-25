@@ -1,0 +1,48 @@
+﻿
+.UTable {
+    border:black thin solid;
+}
+
+.UTable td {
+    border: gray thin dashed;
+}
+
+.UTable-Title {
+    font-size:x-large;
+    font-weight:bold;
+    display: inline-block;
+}
+
+.UTable-RowTitle {
+    min-width: 3em;
+    font-size: 1.5em;
+    text-align: center;
+    display: inline-block;
+}
+
+.UTable-ColumnTitle {
+    font-size: 1.5em;
+    text-align: center;
+    min-width: 3em;
+    display: inline-block;
+}
+
+.UData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.UCode {
+    margin-top:1em;
+    text-align: center;
+}
+
+.ULetter {
+    font-size: 2em;
+    text-align: center;
+    font-family: CascadiaCodeMono;
+}
+
+.UName {
+    font-size: .8em;
+}

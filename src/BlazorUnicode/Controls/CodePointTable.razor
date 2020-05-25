@@ -1,0 +1,45 @@
+﻿@inject UnicodeCharacterDatabase db
+@{
+    var columns = Enumerable.Range(StartCode, ColumnCount);
+}
+<table class="UTable">
+    <thead>
+        <tr><td colspan='@(ColumnCount + 1)' style='text-align:center'><div class="UTable-Title">@Title</div></td></tr>
+        <tr>
+            <td />
+            @foreach (var column in columns) {
+                <td style="text-align:center;"><div class='UTable-ColumnTitle'>@($"{column:X}")</div></td>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (var row = 0x00; row <= 0x0f; row++) {
+            <tr>
+                <td><br /><div class='UTable-RowTitle'>@($"{row:X}")</div></td>
+                @foreach (var column in columns) {
+                    var code = column * 16 + row;
+                    <td>
+                        <CodePoint Code="code" ShowUnicodeName="ShowUnicodeName" />
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public int StartCode { get; set; }
+    [Parameter]
+    public int ColumnCount { get; set; } = 8;
+    [Parameter]
+    public string Title { get; set; } = "";
+    [Parameter]
+    public bool ShowUnicodeName { get; set; } = false;
+    [Parameter]
+    public List<int>? Codes { get; set; } = null;
+
+    protected override void OnInitialized() {
+        base.OnInitialized();
+    }
+}
