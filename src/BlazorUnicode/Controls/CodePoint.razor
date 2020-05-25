@@ -1,6 +1,6 @@
 ﻿@inject UnicodeCharacterDatabase db
 @{
-    var character = Char.ConvertFromUtf32(Code); // Allows for utf-16 code units
+    var character = Char.ConvertFromUtf32((int)Code); // Allows for utf-16 code units
     var unicodeCharacter = db[Code];
 }
 @if (ShowUnicodeName) {
@@ -20,7 +20,7 @@
 @code {
 
     [Parameter]
-    public int Code { get; set; }
+    public long Code { get; set; }
 
     [Parameter]
     public bool ShowUnicodeName { get; set; } = true;

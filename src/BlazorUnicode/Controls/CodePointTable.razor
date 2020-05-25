@@ -1,7 +1,14 @@
 ﻿@inject UnicodeCharacterDatabase db
 @{
     var columnStart = StartCode >> 4;
-    var columns = Enumerable.Range(columnStart, ColumnCount);
+    var columnCount = ColumnCount;
+    var columns = new List<long>();
+    do {
+        columns.Add(columnStart);
+        columnStart++;
+        columnCount--;
+    } while (columnCount > 0);
+    //IEnumerable<long> columns = Enumerable.Range<long>(columnStart, ColumnCount);
 }
 <table class="UTable">
     <thead>
@@ -30,7 +37,7 @@
 
 @code {
     [Parameter]
-    public int StartCode { get; set; }
+    public long StartCode { get; set; }
     [Parameter]
     public int ColumnCount { get; set; } = 8;
     [Parameter]

@@ -37,14 +37,14 @@
 
 } else {
     <button @onclick="@CloseTable">Close</button>
-    <CodePointTable StartCode="@StartCodeInt" ColumnCount="@ColumnCount" Title="@Title" ShowUnicodeName="@ShowUnicodeName" />
+    <CodePointTable StartCode="@StartCodeLong" ColumnCount="@ColumnCount" Title="@Title" ShowUnicodeName="@ShowUnicodeName" />
 }
 @code {
 
     private bool ShowInput { get; set; } = true;
 
     private string StartCode { get; set; } = "2500";
-    private int StartCodeInt { get; set; }
+    private long StartCodeLong { get; set; }
     private int ColumnCount { get; set; } = 8;
     private string Title { get; set; } = "";
     private bool ShowUnicodeName { get; set; } = true;
@@ -54,7 +54,7 @@
     }
 
     private void SelectGroup(UnicodeCharacterGroup group) {
-        StartCodeInt = group.StartCode;
+        StartCodeLong = group.StartCode;
         ColumnCount = group.ColumnCount;
         Title = group.Name;
         ShowInput = false;
@@ -62,12 +62,12 @@
     }
 
     private void BuildTable() {
-        int startCode = 0;
+        long startCode = 0;
 
-        if (!int.TryParse(StartCode, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out startCode)) {
+        if (!long.TryParse(StartCode, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out startCode)) {
             return;
         }
-        StartCodeInt = startCode;
+        StartCodeLong = startCode;
         Title = "";
         ShowInput = false;
         this.StateHasChanged();

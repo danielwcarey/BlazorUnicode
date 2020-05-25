@@ -1,11 +1,40 @@
 ﻿@page "/search"
+@inject UnicodeCharacterDatabase db
 <h3>Search</h3>
-<div>
-    <h4>Search by Name</h4>
-</div>
-<div>
-    <h4>Search by Symbol</h4>
-</div>
+<form>
+    <div class="form-group">
+        <label for="searchName">Search Name</label>
+        <input type="text" class="form-control" id="searchName" placeholder="star" @bind="@SearchName" />
+    </div>
+    <div class="form-group">
+        <label for="searchCharacter">Search Character</label>
+        <input type="text" class="form-control" id="searchCharacter" placeholder="λ" @bind="@SearchCharacter" />
+    </div>    
+    <button @onclick="@SearchUnicodeDatabase">Search</button>
+    <div class="horizontal-rule-dark"></div>
+    @foreach(var unicodeCharacter in UnicodeCharacterList) {
+        <CodePoint Code="@unicodeCharacter.CodePoint" ShowUnicodeName="true"></CodePoint>
+    }
+</form>
 @code {
+    [Parameter]
+    public string SearchName { get; set; } = "";
+    public string SearchCharacter { get; set; } = "";
+    public List<UnicodeCharacter> UnicodeCharacterList { get; set; } = new List<UnicodeCharacter>();
 
+    private void SearchUnicodeDatabase() {
+        UnicodeCharacterList.Clear();
+
+        var searchCharacterResult =
+            db.List
+            .Where(x => SearchCharacter.Length > 0)
+            .Where(x => x.CodePoint == (int)SearchCharacter[0])
+            .Select(x => x);
+
+
+        UnicodeCharacterList.AddRange(searchCharacterResult);
+
+
+        this.ShouldRender();
+    }
 }
