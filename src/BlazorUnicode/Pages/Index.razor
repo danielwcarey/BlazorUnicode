@@ -27,8 +27,8 @@
                 Show Unicode Name
             </label>
         </div>
+        <button @onclick="@BuildTable" @onclick:preventDefault>Show Table</button>
     </form>
-    <button @onclick="@BuildTable">Show Table</button>
     <div class="horizontal-rule-dark"></div>
     <h3>Quick Tables</h3>
     @foreach (var group in UnicodeCharacterGroup.All.OrderBy(g => g.Name)) {
@@ -36,7 +36,9 @@
     }
 
 } else {
-    <button @onclick="@CloseTable">Close</button>
+<form>
+    <button @onclick="@CloseTable" @onclick:preventDefault>Close</button>
+</form>
     <CodePointTable StartCode="@StartCodeLong" ColumnCount="@ColumnCount" Title="@Title" ShowUnicodeName="@ShowUnicodeName" />
 }
 @code {

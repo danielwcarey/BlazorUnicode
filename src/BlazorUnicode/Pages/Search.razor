@@ -4,37 +4,78 @@
 <form>
     <div class="form-group">
         <label for="searchName">Search Name</label>
-        <input type="text" class="form-control" id="searchName" placeholder="star" @bind="@SearchName" />
+        <input type="text" class="form-control" id="searchName" placeholder="partial text" @bind="@SearchName" />
     </div>
     <div class="form-group">
         <label for="searchCharacter">Search Character</label>
-        <input type="text" class="form-control" id="searchCharacter" placeholder="λ" @bind="@SearchCharacter" />
-    </div>    
-    <button @onclick="@SearchUnicodeDatabase">Search</button>
+        <input type="text" class="form-control" id="searchCharacter" placeholder="paste symbol, ex: λ" @bind="@SearchCharacter" />
+    </div>
+    <button @onclick="SearchUnicodeDatabase" @onclick:preventDefault>Search</button>
     <div class="horizontal-rule-dark"></div>
-    @foreach(var unicodeCharacter in UnicodeCharacterList) {
-        <CodePoint Code="@unicodeCharacter.CodePoint" ShowUnicodeName="true"></CodePoint>
-    }
+    <div>@Message</div>
+    <div style="flex-flow:row;flex-wrap:wrap;">
+        @foreach (var unicodeCharacter in UnicodeCharacterList) {
+        <div style="display:inline-block;max-width:5em;">
+            <CodePoint Code="@unicodeCharacter.CodePoint" ShowUnicodeName="true"></CodePoint>
+        </div>
+        }
+    </div>
 </form>
+
 @code {
     [Parameter]
     public string SearchName { get; set; } = "";
     public string SearchCharacter { get; set; } = "";
+    public string Message { get; set; } = "";
     public List<UnicodeCharacter> UnicodeCharacterList { get; set; } = new List<UnicodeCharacter>();
 
     private void SearchUnicodeDatabase() {
+        const int maxResultCount = 150;
+        int numberFound = 0;
+
         UnicodeCharacterList.Clear();
 
-        var searchCharacterResult =
-            db.List
-            .Where(x => SearchCharacter.Length > 0)
-            .Where(x => x.CodePoint == (int)SearchCharacter[0])
-            .Select(x => x);
+        // SearchCharacter
+        if (SearchCharacter.Length > 0) {
 
+            var searchCharacterFound =
+                db.List.Where(x => x.CodePoint == SearchCharacter[0]);
 
-        UnicodeCharacterList.AddRange(searchCharacterResult);
+            numberFound += searchCharacterFound.Count();
 
+            var searchCharacterResult =
+                searchCharacterFound
+                .Take(maxResultCount)
+                .Select(x => x);
 
-        this.ShouldRender();
+            UnicodeCharacterList.AddRange(searchCharacterResult);
+        }
+
+        // SearchName
+        if (SearchName.Length > 0) {
+            var searchName = SearchName.ToLower();
+
+            var searchNameFound =
+                db.List
+                .Where(x =>
+                    x.Name.ToLower().Contains(searchName) ||
+                    x.RangeName.ToLower().Contains(searchName)
+                );
+
+            numberFound += searchNameFound.Count();
+
+            var searchNameResult =
+                searchNameFound
+                .Take(maxResultCount)
+                .Select(x => x);
+
+            UnicodeCharacterList.AddRange(searchNameResult);
+        }
+
+        if (numberFound > maxResultCount) {
+            Message = $"Result list truncated to {maxResultCount}. Found {numberFound:N0} results.";
+        } else {
+            Message = "";
+        }
     }
 }
