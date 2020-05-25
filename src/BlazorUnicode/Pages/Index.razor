@@ -1,22 +1,79 @@
 ﻿@page "/"
+@using System.Globalization
 @inject UnicodeCharacterDatabase db
-@foreach(var group in UnicodeCharacterGroup.Letters) {
-    <div style="display:inline-block;">@group.Name</div>
+@if (ShowInput) {
+    <form>
+        <div class="form-group">
+            <label for="startCode">Start Code (hexadecimal)</label>
+            <input type="text" class="form-control" id="startCode" placeholder="250 - Hexvalue" @bind="@StartCode" />
+        </div>
+        <div class="form-group">
+            <label for="columnCount">Column Count</label>
+            <select class="form-control" id="columnCount" @bind="@ColumnCount">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+            </select>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="showUnicodeName" @bind="@ShowUnicodeName">
+            <label class="form-check-label" for="showUnicodeName">
+                Show Unicode Name
+            </label>
+        </div>
+    </form>
+    <button @onclick="@BuildTable">Show Table</button>
+    <div class="horizontal-rule-dark"></div>
+    <h3>Quick Tables</h3>
+    @foreach (var group in UnicodeCharacterGroup.All.OrderBy(g => g.Name)) {
+        <button @onclick='@(_ => SelectGroup(group))'>@group.Name</button>
+    }
+
+} else {
+    <button @onclick="@CloseTable">Close</button>
+    <CodePointTable StartCode="@StartCodeInt" ColumnCount="@ColumnCount" Title="@Title" ShowUnicodeName="@ShowUnicodeName" />
 }
-
-
 @code {
 
-    private List<string> RangeNames { get; set; } = new List<string>();
-    private List<UnicodeCharacter> UnicodeCharacterList { get; set; } = new List<UnicodeCharacter>();
+    private bool ShowInput { get; set; } = true;
+
+    private string StartCode { get; set; } = "250";
+    private int StartCodeInt { get; set; }
+    private int ColumnCount { get; set; } = 8;
+    private string Title { get; set; } = "";
+    private bool ShowUnicodeName { get; set; } = true;
 
     protected override void OnInitialized() {
         base.OnInitialized();
-        //UnicodeCharacterList = db.List.ToList();
-        //RangeNames = UnicodeCharacterList
-        //    .Select(uc => uc.RangeName)
-        //    .Distinct()
-        //    .OrderBy(n => n)
-        //    .ToList();
+    }
+
+    private void SelectGroup(UnicodeCharacterGroup group) {
+        StartCodeInt = group.StartCode;
+        ColumnCount = group.ColumnCount;
+        Title = group.Name;
+        ShowInput = false;
+        this.StateHasChanged();
+    }
+
+    private void BuildTable() {
+        int startCode = 0;
+
+        if (!int.TryParse(StartCode, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out startCode)) {
+            return;
+        }
+        StartCodeInt = startCode;
+        Title = "";
+        ShowInput = false;
+        this.StateHasChanged();
+    }
+
+    private void CloseTable() {
+        ShowInput = true;
+        this.StateHasChanged();
     }
 }

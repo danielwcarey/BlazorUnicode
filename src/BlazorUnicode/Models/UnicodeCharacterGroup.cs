@@ -147,11 +147,11 @@ namespace BlazorUnicode.Models {
 
             // *** Looking for a font for these...maybe in 'Noto Sans' eventually? ***
             //
-            new UnicodeCharacterGroup(0x1010, 4, "Aegean Numbers", true),
-            new UnicodeCharacterGroup(0x10140, 5, "Ancient Greek Numbers", true),
-            new UnicodeCharacterGroup(0x10190, 4, "Ancient Symbols", true),
-            new UnicodeCharacterGroup(0x101d0, 3, "Phaistos Disc", true),
-            new UnicodeCharacterGroup(0x10330, 2, "Gothic", true),
+            //new UnicodeCharacterGroup(0x1010, 4, "Aegean Numbers", true),
+            //new UnicodeCharacterGroup(0x10140, 5, "Ancient Greek Numbers", true),
+            //new UnicodeCharacterGroup(0x10190, 4, "Ancient Symbols", true),
+            //new UnicodeCharacterGroup(0x101d0, 3, "Phaistos Disc", true),
+            //new UnicodeCharacterGroup(0x10330, 2, "Gothic", true),
         };
     }
 }
