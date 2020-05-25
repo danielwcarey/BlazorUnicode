@@ -24,6 +24,8 @@ namespace BlazorUnicode.Models {
             }
         }
 
+        public IEnumerable<UnicodeCharacter> List { get => _data.Values; }
+
         public async Task LoadDataAsync() {
 
             if (_data.Count > 0) return;

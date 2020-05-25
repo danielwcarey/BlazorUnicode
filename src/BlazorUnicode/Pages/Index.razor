@@ -1,8 +1,22 @@
 ﻿@page "/"
-<h1>Blazor Unicode Helper</h1>
+@inject UnicodeCharacterDatabase db
+@foreach(var group in UnicodeCharacterGroup.Letters) {
+    <div style="display:inline-block;">@group.Name</div>
+}
 
-@code { 
+
+@code {
+
+    private List<string> RangeNames { get; set; } = new List<string>();
+    private List<UnicodeCharacter> UnicodeCharacterList { get; set; } = new List<UnicodeCharacter>();
+
     protected override void OnInitialized() {
-            base.OnInitialized();
-        }
+        base.OnInitialized();
+        //UnicodeCharacterList = db.List.ToList();
+        //RangeNames = UnicodeCharacterList
+        //    .Select(uc => uc.RangeName)
+        //    .Distinct()
+        //    .OrderBy(n => n)
+        //    .ToList();
+    }
 }
