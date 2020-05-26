@@ -1,17 +1,17 @@
 ﻿@import url('app.css');
 
 @font-face {
-    font-family: "CascadiaCode";
+    font-family: "Cascadia Code PL";
     src: url('fonts/CascadiaCodePL.woff2');
 }
 
 @font-face {
-    font-family: "CascadiaCodeMono";
+    font-family: "Cascadia Mono PL";
     src: url('fonts/CascadiaMonoPL.woff2');
 }
 
 html, body {
-    font-family: CascadiaCode;
+    font-family: 'Cascadia Code PL';
 }
 
 /* Helper */
@@ -69,7 +69,7 @@ html, body {
 .ULetter {
     font-size: 2em;
     text-align: center;
-    font-family: CascadiaCodeMono;
+    font-family: 'Cascadia Mono PL';
 }
 
 .UName {

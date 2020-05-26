@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<RazorLangVersion>3.0</RazorLangVersion>
 		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 		<Nullable>enable</Nullable>
-		<BlazorCacheBootResources>false</BlazorCacheBootResources>
+		<!--<BlazorCacheBootResources>false</BlazorCacheBootResources>-->
 	</PropertyGroup>
 
 
@@ -23,12 +23,6 @@
 	<ItemGroup>
 		<Folder Include="Properties\PublishProfiles\" />
 		<Folder Include="wwwroot\css\fonts\" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="wwwroot\data\UnicodeData.txt">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
 	</ItemGroup>
 
 </Project>

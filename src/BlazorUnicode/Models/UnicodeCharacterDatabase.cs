@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,10 +7,12 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BlazorUnicode.Models {
     public class UnicodeCharacterDatabase {
 
+        private bool _haveLoaded = false;
         private readonly HttpClient _client;
         private readonly Dictionary<long, UnicodeCharacter> _data = new Dictionary<long, UnicodeCharacter>();
 
@@ -19,19 +22,24 @@ namespace BlazorUnicode.Models {
 
         public UnicodeCharacter this[long index] {
             get {
+                if (!_haveLoaded) LoadDataAsync();
                 if (!_data.ContainsKey(index)) return UnicodeCharacter.Empty;
                 return _data[index];
             }
         }
 
-        public IEnumerable<UnicodeCharacter> List { get => _data.Values; }
+        public IEnumerable<UnicodeCharacter> List { 
+            get {
+                if (!_haveLoaded) LoadDataAsync();
+                return _data.Values;
+            }
+        }
 
-        public async Task LoadDataAsync() {
+        private async Task LoadDataAsync() {
 
             if (_data.Count > 0) return;
 
             var url = "data/UnicodeData.txt";
-
             var text = await _client.GetAsync(url);
             var bytes = await text.Content.ReadAsByteArrayAsync();
 
@@ -39,7 +47,9 @@ namespace BlazorUnicode.Models {
         }
 
         // Parse the UnicodeData.txt contents        
-        internal void ImportBytes(byte[] datasetBytes) {
+        private void ImportBytes(byte[] datasetBytes) {
+            if (datasetBytes.Length == 0) return;
+
             var text = Encoding.ASCII.GetString(datasetBytes);
             var rows = text.Split(Environment.NewLine.ToArray());
 
@@ -57,36 +67,7 @@ namespace BlazorUnicode.Models {
                 };
                 _data.Add(unicodeCharacter.CodePoint, unicodeCharacter);
             }
+            _haveLoaded = true;
         }
-
-        // Can use either the folder path or the fullFilename
-        //public static byte[] ReadLocalDataset(string path, string fileName = "UnicodeData.txt") {
-        //    if (File.Exists(path)) {
-        //        return File.ReadAllBytes(path);
-        //    }
-        //    return File.ReadAllBytes(Path.Combine(path, fileName));
-        //}
-
-        //public static void SaveLocalDataset(string fullFileName) {
-        //    if (File.Exists(fullFileName)) throw new Exception($"The file already exists: {fullFileName}");
-
-        //    File.WriteAllBytes(fullFileName, DownloadDataset());
-
-        //}
-
-        // Download the official unicode UnicodeData.txt // ascii
-        //public static byte[] DownloadDataset() {
-
-        //    var unicodeDataUrl = @"https://unicode.org/Public/UNIDATA/UnicodeData.txt";
-        //    var client = new System.Net.WebClient();
-
-        //    var bytes = client.DownloadData(unicodeDataUrl);
-
-        //    return bytes;
-        //}
-
-        //internal static void SaveLocalDataset(string cwd, object filename) {
-        //    throw new NotImplementedException();
-        //}
     }
 }
