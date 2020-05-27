@@ -35,7 +35,7 @@ namespace BlazorUnicode.Models {
             }
         }
 
-        private async Task LoadDataAsync() {
+        internal async Task LoadDataAsync() {
 
             if (_data.Count > 0) return;
 

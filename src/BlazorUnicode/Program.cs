@@ -19,15 +19,15 @@ namespace BlazorUnicode {
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddSingleton<UnicodeCharacterDatabase>();
-            
+            //builder.Services.AddSingleton<UnicodeCharacterDatabase>();
+
             // Cannot await. Single-thread
             // Load the data here 
-            //var serviceProvider = builder.Services.BuildServiceProvider();
-            //var client = serviceProvider.GetService<HttpClient>();
-            //var db = new UnicodeCharacterDatabase(client);
-            //await db.LoadDataAsync(); // CAN await here
-            //builder.Services.AddSingleton<UnicodeCharacterDatabase>(_ => db);
+            var serviceProvider = builder.Services.BuildServiceProvider();
+            var client = serviceProvider.GetService<HttpClient>();
+            var db = new UnicodeCharacterDatabase(client);
+            await db.LoadDataAsync(); // CAN await here
+            builder.Services.AddSingleton<UnicodeCharacterDatabase>(_ => db);
 
             await builder.Build().RunAsync();
         }
