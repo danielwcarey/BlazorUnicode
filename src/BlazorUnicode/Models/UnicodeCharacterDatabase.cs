@@ -12,9 +12,10 @@ using System.Xml.Serialization;
 namespace BlazorUnicode.Models {
     public class UnicodeCharacterDatabase {
 
-        private bool _haveLoaded = false;
+        private static bool _haveLoaded = false;        
+        private static readonly Dictionary<long, UnicodeCharacter> _data = new Dictionary<long, UnicodeCharacter>();
+
         private readonly HttpClient _client;
-        private readonly Dictionary<long, UnicodeCharacter> _data = new Dictionary<long, UnicodeCharacter>();
 
         public UnicodeCharacterDatabase(HttpClient client) {
             _client = client;
@@ -39,7 +40,7 @@ namespace BlazorUnicode.Models {
 
             if (_data.Count > 0) return;
 
-            var url = "data/UnicodeData.txt";
+            var url = @"/data/UnicodeData.txt";
             var text = await _client.GetAsync(url);
             var bytes = await text.Content.ReadAsByteArrayAsync();
 

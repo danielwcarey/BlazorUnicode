@@ -16,18 +16,14 @@ namespace BlazorUnicode {
     public class Program {
         public static async Task Main(string[] args) {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("app");
+            builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            //builder.Services.AddSingleton<UnicodeCharacterDatabase>();
-
-            // Cannot await. Single-thread
-            // Load the data here 
-            var serviceProvider = builder.Services.BuildServiceProvider();
-            var client = serviceProvider.GetService<HttpClient>();
-            var db = new UnicodeCharacterDatabase(client);
-            await db.LoadDataAsync(); // CAN await here
-            builder.Services.AddSingleton<UnicodeCharacterDatabase>(_ => db);
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddScoped<UnicodeCharacterDatabase>(service =>                
+                new UnicodeCharacterDatabase(
+                    service.GetRequiredService<HttpClient>()
+                )
+            );
 
             await builder.Build().RunAsync();
         }

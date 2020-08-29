@@ -1,82 +1,32 @@
 ﻿@page "/"
-@page "/browse"
-@using System.Globalization
-<h3>Browse</h3>
-@if (ShowInput) {
-    <form>
-        <div class="form-group">
-            <label for="startCode">Start Code (hexadecimal)</label>
-            <input type="text" class="form-control" id="startCode" placeholder="2500 - Hexvalue" @bind="@StartCode" />
-        </div>
-        <div class="form-group">
-            <label for="columnCount">Column Count</label>
-            <select class="form-control" id="columnCount" @bind="@ColumnCount">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-            </select>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="showUnicodeName" @bind="@ShowUnicodeName">
-            <label class="form-check-label" for="showUnicodeName">
-                Show Unicode Name
-            </label>
-        </div>
-        <button @onclick="@BuildTable" @onclick:preventDefault>Show Table</button>
-    </form>
-    <div class="horizontal-rule-dark"></div>
-    <h3>Quick Tables</h3>
-    @foreach (var group in UnicodeCharacterGroup.All.OrderBy(g => g.Name)) {
-        <button @onclick='@(_ => SelectGroup(group))'>@group.Name</button>
-    }
-
-} else {
-<form>
-    <button @onclick="@CloseTable" @onclick:preventDefault>Close</button>
-</form>
-    <CodePointTable StartCode="@StartCodeLong" ColumnCount="@ColumnCount" Title="@Title" ShowUnicodeName="@ShowUnicodeName" />
-}
-@code {
-
-    private bool ShowInput { get; set; } = true;
-
-    private string StartCode { get; set; } = "2500";
-    private long StartCodeLong { get; set; }
-    private int ColumnCount { get; set; } = 8;
-    private string Title { get; set; } = "";
-    private bool ShowUnicodeName { get; set; } = true;
-
-    protected override void OnInitialized() {
-        base.OnInitialized();
-    }
-
-    private void SelectGroup(UnicodeCharacterGroup group) {
-        StartCodeLong = group.StartCode;
-        ColumnCount = group.ColumnCount;
-        Title = group.Name;
-        ShowInput = false;
-        this.StateHasChanged();
-    }
-
-    private void BuildTable() {
-        long startCode = 0;
-
-        if (!long.TryParse(StartCode, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out startCode)) {
-            return;
+@inject UnicodeCharacterDatabase unicodeCharacterDatabase
+<h3>Welcome</h3>
+<p>
+    With the imminent release of .NET 5; time to give this project some better attention with
+    the goal to have this 'release' ready for .NET 5 release.
+</p>
+<h3>Useful links</h3>
+<div>
+    <a href="https://github.com/natemcmaster/dotnet-serve" target="_blank">Nate McMaster's dotnet serve</a>
+    <p>
+        After publishing this application to a staging folder. One can navigate to the 'wwroot' folder
+        and do a
+<pre>
+dotnet serve --port 5000
+</pre>
+    </p>
+    <p>
+        You can install this tool via:
+<pre>
+dotnet tool install dotnet-serve -g
+</pre>
+    </p>
+</div>
+@code { 
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        if (firstRender) {
+            await unicodeCharacterDatabase.LoadDataAsync();
         }
-        StartCodeLong = startCode;
-        Title = "";
-        ShowInput = false;
-        this.StateHasChanged();
     }
 
-    private void CloseTable() {
-        ShowInput = true;
-        this.StateHasChanged();
-    }
 }
