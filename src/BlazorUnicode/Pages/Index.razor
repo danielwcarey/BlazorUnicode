@@ -2,26 +2,8 @@
 @inject UnicodeCharacterDatabase unicodeCharacterDatabase
 <h3>Welcome</h3>
 <p>
-    With the imminent release of .NET 5; time to give this project some better attention with
-    the goal to have this 'release' ready for .NET 5 release.
+    Updated for the release of .NET 6.
 </p>
-<h3>Useful links</h3>
-<div>
-    <a href="https://github.com/natemcmaster/dotnet-serve" target="_blank">Nate McMaster's dotnet serve</a>
-    <p>
-        After publishing this application to a staging folder. One can navigate to the 'wwroot' folder
-        and do a
-<pre>
-dotnet serve --port 5000
-</pre>
-    </p>
-    <p>
-        You can install this tool via:
-<pre>
-dotnet tool install dotnet-serve -g
-</pre>
-    </p>
-</div>
 @code { 
     protected override async Task OnAfterRenderAsync(bool firstRender) {
         if (firstRender) {
