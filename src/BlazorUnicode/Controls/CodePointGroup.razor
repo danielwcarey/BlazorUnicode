@@ -1,13 +1,15 @@
 ﻿<div style="display:flex;flex-direction:row;flex-wrap:wrap;">
-    @foreach (var table in UnicodeCharacterGroup) {
-        <CodePointTable StartCode="table.StartCode" ColumnCount="table.ColumnCount"
-                        Title="@table.Name" ShowUnicodeName="table.ShowUnicodeName">
-        </CodePointTable>
+    @if (UnicodeCharacterGroup != null)
+    {
+        @foreach (var table in UnicodeCharacterGroup)
+        {
+            <CodePointTable StartCode="table.StartCode" ColumnCount="table.ColumnCount"
+                    Title="@table.Name" ShowUnicodeName="table.ShowUnicodeName">
+            </CodePointTable>
+        }
     }
 </div>
 @code {
     [Parameter]
-    public List<UnicodeCharacterGroup> UnicodeCharacterGroup {get;set;}
-
-
+    public List<UnicodeCharacterGroup>? UnicodeCharacterGroup { get; set; }
 }

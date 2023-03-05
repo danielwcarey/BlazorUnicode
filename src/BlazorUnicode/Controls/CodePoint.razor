@@ -3,18 +3,21 @@
     var character = Char.ConvertFromUtf32((int)Code); // Allows for utf-16 code units
     var unicodeCharacter = db[Code];
 }
-@if (ShowUnicodeName) {
+@if (ShowUnicodeName)
+{
     <div class="UData">
         <span class='ULetter'>@unicodeCharacter.Character</span>
         <span class="UCode">@unicodeCharacter.CodePointHex</span>
         <span class='UName'>@unicodeCharacter.RangeName</span>
         <span class='UName'>@unicodeCharacter.Name</span>
     </div>
-} else {
-<div class="UData">
-    <span class='ULetter'>&#160;@(character)&#160;</span>
-    <span class="UCode">@unicodeCharacter.CodePointHex</span>
-</div>
+}
+else
+{
+    <div class="UData">
+        <span class='ULetter'>&#160;@(character)&#160;</span>
+        <span class="UCode">@unicodeCharacter.CodePointHex</span>
+    </div>
 }
 
 @code {

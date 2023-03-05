@@ -14,10 +14,11 @@
     <div class="horizontal-rule-dark"></div>
     <div>@Message</div>
     <div style="flex-flow:row;flex-wrap:wrap;">
-        @foreach (var unicodeCharacter in UnicodeCharacterList) {
-        <div style="display:inline-block;max-width:5em;">
-            <CodePoint Code="@unicodeCharacter.CodePoint" ShowUnicodeName="true"></CodePoint>
-        </div>
+        @foreach (var unicodeCharacter in UnicodeCharacterList)
+        {
+            <div style="display:inline-block;max-width:5em;">
+                <CodePoint Code="@unicodeCharacter.CodePoint" ShowUnicodeName="true"></CodePoint>
+            </div>
         }
     </div>
 </form>
@@ -29,14 +30,16 @@
     public string Message { get; set; } = "";
     public List<UnicodeCharacter> UnicodeCharacterList { get; set; } = new List<UnicodeCharacter>();
 
-    private void SearchUnicodeDatabase() {
+    private void SearchUnicodeDatabase()
+    {
         const int maxResultCount = 150;
         int numberFound = 0;
 
         UnicodeCharacterList.Clear();
 
         // SearchCharacter
-        if (SearchCharacter.Length > 0) {
+        if (SearchCharacter.Length > 0)
+        {
 
             var searchCharacterFound =
                 db.List.Where(x => x.CodePoint == SearchCharacter[0]);
@@ -52,7 +55,8 @@
         }
 
         // SearchName
-        if (SearchName.Length > 0) {
+        if (SearchName.Length > 0)
+        {
             var searchName = SearchName.ToLower();
 
             var searchNameFound =
@@ -72,9 +76,12 @@
             UnicodeCharacterList.AddRange(searchNameResult);
         }
 
-        if (numberFound > maxResultCount) {
+        if (numberFound > maxResultCount)
+        {
             Message = $"Result list truncated to {maxResultCount}. Found {numberFound:N0} results.";
-        } else {
+        }
+        else
+        {
             Message = "";
         }
     }
