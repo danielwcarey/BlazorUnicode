@@ -3,7 +3,8 @@
     var columnStart = StartCode >> 4;
     var columnCount = ColumnCount;
     var columns = new List<long>();
-    do {
+    do
+    {
         columns.Add(columnStart);
         columnStart++;
         columnCount--;
@@ -15,16 +16,19 @@
         <tr><td colspan='@(ColumnCount + 1)' style='text-align:center'><div class="UTable-Title">@Title</div></td></tr>
         <tr>
             <td />
-            @foreach (var column in columns) {
+            @foreach (var column in columns)
+            {
                 <td style="text-align:center;"><div class='UTable-ColumnTitle'>@($"{column:X}")</div></td>
             }
         </tr>
     </thead>
     <tbody>
-        @for (var row = 0x00; row <= 0x0f; row++) {
+        @for (var row = 0x00; row <= 0x0f; row++)
+        {
             <tr>
                 <td><br /><div class='UTable-RowTitle'>@($"{row:X}")</div></td>
-                @foreach (var column in columns) {
+                @foreach (var column in columns)
+                {
                     var code = column * 16 + row;
                     <td>
                         <CodePoint Code="code" ShowUnicodeName="ShowUnicodeName" />
@@ -47,7 +51,8 @@
     [Parameter]
     public List<int>? Codes { get; set; } = null;
 
-    protected override void OnInitialized() {
+    protected override void OnInitialized()
+    {
         base.OnInitialized();
     }
 }
