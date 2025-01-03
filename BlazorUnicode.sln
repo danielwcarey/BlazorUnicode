@@ -9,7 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorUnicodeServer", "src\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F12DF13-D9FD-474D-9BDD-DA9143472ECC}"
 	ProjectSection(SolutionItems) = preProject
+		build.ps1 = build.ps1
 		Dockerfile = Dockerfile
+		readme.md = readme.md
+		run.ps1 = run.ps1
 	EndProjectSection
 EndProject
 Global
