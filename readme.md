@@ -10,6 +10,20 @@ Some of the things I find myself doing frequently is:
 * Given a page that has a character, just learning more about that (uni)code point.
 * Just browsing all the effort put into a font.
 
+### Running locally using docker
+
+1. Build the container using:
+
+```powershell
+.\build.ps1
+```
+
+2. Run a temporary image using:
+ 
+```powershell
+.\run.ps1
+```
+
 
 Here are some useful links and tools:
 * [Microsoft Cascadia Code font](https://github.com/microsoft/cascadia-code)
