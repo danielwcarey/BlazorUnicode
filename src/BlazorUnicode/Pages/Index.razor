@@ -1,14 +1,5 @@
 ﻿@page "/"
-@inject UnicodeCharacterDatabase unicodeCharacterDatabase
 <h3>Welcome</h3>
 <p>
-    Updated for the release of .NET 6.
+    Updated for .NET 9.
 </p>
-@code { 
-    protected override async Task OnAfterRenderAsync(bool firstRender) {
-        if (firstRender) {
-            await unicodeCharacterDatabase.LoadDataAsync();
-        }
-    }
-
-}

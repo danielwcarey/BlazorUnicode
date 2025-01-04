@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>BlazorUnicode</title>
     <base href="/" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/myApp.css" rel="stylesheet" />
     <link href="BlazorUnicode.styles.css" rel="stylesheet" />
     <link href="manifest.json" rel="manifest" />
@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div id="app">Loading...</div>
+    <div id="app"><div id="loading">Loading...</div></div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
@@ -24,6 +24,7 @@
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>

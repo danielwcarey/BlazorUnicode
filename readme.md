@@ -33,19 +33,19 @@ Here are some useful links and tools:
 
 ## Screenshots
 The Main Page
-![](Image1.png)
+![](docs/Image1.png)
 
 Browsing the Arrows
-![](Image2.png)
+![](docs/Image2.png)
 
 Browsing from the Code Point 2500
-![](Image3.png)
+![](docs/Image3.png)
 
 Example Search for 'angle'
-![](Image4.png)
+![](docs/Image4.png)
 
 Browsing Map Symbols
-![](Image5.png)
+![](docs/Image5.png)
 
 Browsing Emoticons
-![](Image6.png)
+![](docs/Image6.png)

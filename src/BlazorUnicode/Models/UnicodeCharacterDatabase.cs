@@ -5,45 +5,35 @@ namespace BlazorUnicode.Models;
 
 public class UnicodeCharacterDatabase
 {
-    private static bool _haveLoaded = false;
-    private static readonly Dictionary<long, UnicodeCharacter> _data = new Dictionary<long, UnicodeCharacter>();
-
-    private readonly HttpClient client;
-
-    public UnicodeCharacterDatabase(HttpClient client, NavigationManager navigationManager)
+    public UnicodeCharacterDatabase(HttpClient client)
     {
-        this.client = client;
-        this.client.BaseAddress = new Uri(navigationManager.BaseUri);
+        _client = client;
+        //_ = LoadDataAsync();
     }
+
+    private static readonly Dictionary<long, UnicodeCharacter> _data = new();
+
+    private readonly HttpClient _client;
+
+    public bool IsLoaded { get; private set; }
 
     public UnicodeCharacter this[long index]
     {
         get
         {
-            if (!_haveLoaded) LoadDataAsync();
-
-            if (!_data.ContainsKey(index)) return UnicodeCharacter.Empty;
-            return _data[index];
+            if (!_data.TryGetValue(index, out var item)) return UnicodeCharacter.Empty;
+            return item;
         }
     }
 
-    public IEnumerable<UnicodeCharacter> List
+    public IEnumerable<UnicodeCharacter> List => _data.Values;
+
+    public async Task LoadDataAsync()
     {
-        get
-        {
-            if (!_haveLoaded) LoadDataAsync();
-
-            return _data.Values;
-        }
-    }
-
-    internal async Task LoadDataAsync()
-    {
-
         if (_data.Count > 0) return;
 
-        var url = @"data/UnicodeData.txt";
-        var text = await client.GetAsync(url);
+        var url = "data/UnicodeData.txt";
+        var text = await _client.GetAsync(url);
         var bytes = await text.Content.ReadAsByteArrayAsync();
 
         ImportBytes(bytes);
@@ -59,10 +49,9 @@ public class UnicodeCharacterDatabase
 
         foreach (var row in rows)
         {
-            long codePoint = 0;
-            var fields = row.Split(new char[] { ';' });
+            var fields = row.Split(new[] { ';' });
 
-            if (!long.TryParse(fields[0].Trim(), System.Globalization.NumberStyles.HexNumber, null, out codePoint)) continue;
+            if (!long.TryParse(fields[0].Trim(), System.Globalization.NumberStyles.HexNumber, null, out var codePoint)) continue;
 
             if (fields.Length < 10) continue;
             var unicodeCharacter = new UnicodeCharacter()
@@ -73,6 +62,7 @@ public class UnicodeCharacterDatabase
             };
             _data.Add(unicodeCharacter.CodePoint, unicodeCharacter);
         }
-        _haveLoaded = true;
+
+        IsLoaded = true;
     }
 }
