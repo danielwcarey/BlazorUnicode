@@ -1,4 +1,4 @@
-﻿@inject UnicodeCharacterDatabase db
+﻿@inject UnicodeCharacterDatabase Db
 @{
     var columnStart = StartCode >> 4;
     var columnCount = ColumnCount;
@@ -51,8 +51,4 @@
     [Parameter]
     public List<int>? Codes { get; set; } = null;
 
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-    }
 }
