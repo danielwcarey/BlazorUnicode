@@ -2,19 +2,24 @@
 @inject UnicodeCharacterDatabase Db
 <h3>Search</h3>
 <form>
-    <div class="form-group">
+    <div class="form-group mb-2">
         <label for="searchName">Search Name</label>
         <input type="text" class="form-control" id="searchName" placeholder="partial text" @bind="@SearchName" />
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-2">
         <label for="searchCharacter">Search Character</label>
         <input type="text" class="form-control" id="searchCharacter" placeholder="paste symbol, ex: λ" @bind="@SearchCharacter" />
     </div>
+    
+    <div class="form-group mb-2">
+        <label for="maxResultCount">Max Result Count</label>
+        <input type="number" class="form-control" id="maxResultCount" placeholder="paste symbol, ex: λ" @bind="@MaxResultCount" />
+    </div>
 
-    <button @onclick="SearchUnicodeDatabase" @onclick:preventDefault>Search</button>
+    <button class="mb-2" @onclick="SearchUnicodeDatabase" @onclick:preventDefault>Search</button>
 
-    <div class="horizontal-rule-dark"></div>
+    <div class="horizontal-rule-dark mb-2"></div>
 
     <div>@Message</div>
 
@@ -33,11 +38,12 @@
     public string SearchName { get; set; } = "";
     public string SearchCharacter { get; set; } = "";
     public string Message { get; set; } = "";
+    public int MaxResultCount { get; set; } = 255;
+
     public List<UnicodeCharacter> UnicodeCharacterList { get; set; } = new();
 
     private void SearchUnicodeDatabase()
     {
-        const int maxResultCount = 150;
         int numberFound = 0;
 
         UnicodeCharacterList.Clear();
@@ -54,7 +60,7 @@
 
             var searchCharacterResult =
                 searchCharacterFound
-                .Take(maxResultCount)
+                .Take(MaxResultCount)
                 .Select(x => x);
 
             UnicodeCharacterList.AddRange(searchCharacterResult);
@@ -77,14 +83,14 @@
 
             var searchNameResult =
                 searchNameFound
-                .Take(maxResultCount)
+                .Take(MaxResultCount)
                 .Select(x => x);
 
             UnicodeCharacterList.AddRange(searchNameResult);
         }
 
-        Message = numberFound > maxResultCount
-            ? $"Result list truncated to {maxResultCount}. Found {numberFound:N0} results."
+        Message = numberFound > MaxResultCount
+            ? $"Result list truncated to {MaxResultCount}. Found {numberFound:N0} results."
             : "";
     }
 }
