@@ -6,17 +6,22 @@
         <label for="searchName">Search Name</label>
         <input type="text" class="form-control" id="searchName" placeholder="partial text" @bind="@SearchName" />
     </div>
+
     <div class="form-group">
         <label for="searchCharacter">Search Character</label>
         <input type="text" class="form-control" id="searchCharacter" placeholder="paste symbol, ex: λ" @bind="@SearchCharacter" />
     </div>
+
     <button @onclick="SearchUnicodeDatabase" @onclick:preventDefault>Search</button>
+
     <div class="horizontal-rule-dark"></div>
+
     <div>@Message</div>
+
     <div style="flex-flow:row;flex-wrap:wrap;">
         @foreach (var unicodeCharacter in UnicodeCharacterList)
         {
-            <div style="display:inline-block;max-width:5em;">
+            <div style="display:inline-block; padding:5px; text-align:center; max-width:12em; height:100%; border: thin black solid">
                 <CodePoint Code="@unicodeCharacter.CodePoint" ShowUnicodeName="true"></CodePoint>
             </div>
         }

@@ -16,9 +16,9 @@ html, body {
 
 /* Helper */
 .horizontal-rule-light {
-    display:inline-block;
+    display: inline-block;
     border-bottom: thick white solid;
-    height:1em;
+    height: 1em;
 }
 
 .horizontal-rule-dark {
@@ -62,7 +62,6 @@ html, body {
 }
 
 .UCode {
-    margin-top: 1em;
     text-align: center;
 }
 
@@ -74,4 +73,26 @@ html, body {
 
 .UName {
     font-size: .8em;
+}
+
+#loading {
+    font-size: 2em;
+    color: #007bff;
+    text-align: center;
+    margin-top: 20%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }

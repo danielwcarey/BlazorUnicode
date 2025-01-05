@@ -3,16 +3,25 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
+      "library": "open-iconic@1.1.1",
+      "destination": "wwwroot/lib/open-iconic/"
+    },
+    {
       "library": "bootstrap@5.3.3",
       "destination": "wwwroot/lib/bootstrap/",
       "files": [
         "js/bootstrap.min.js",
+        "css/bootstrap.css",
         "css/bootstrap.min.css"
       ]
     },
     {
-      "library": "open-iconic@1.1.1",
-      "destination": "wwwroot/lib/open-iconic/"
+      "library": "bootstrap-icons@1.11.3",
+      "destination": "wwwroot/lib/bootstrap-icons/",
+      "files": [
+        "font/fonts/bootstrap-icons.woff2",
+        "font/bootstrap-icons.min.css"
+      ]
     }
   ]
 }

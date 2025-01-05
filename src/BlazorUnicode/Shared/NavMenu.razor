@@ -1,96 +1,105 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">BlazorUnicode</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">BlazorUnicode</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="nav flex-column">
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Welcome
+                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Welcome
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="browse" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Browse
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="browse">
+                <span class="bi bi-book-nav-menu" aria-hidden="true"></span> Browse
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
+        </div>
+
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="search">
-                <span class="oi oi-plus" aria-hidden="true"></span> Search
+                <span class="bi bi-search-nav-menu" aria-hidden="true"></span> Search
             </NavLink>
-        </li>
+        </div>
         <li>
             <div style="border-bottom:thick solid white;"></div>
         </li>
-        <li class="nav-item px-3">
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="list_boxes">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Boxes
+                <span class="bi bi-unicode-list-nav-menu" aria-hidden="true"></span> Boxes
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
+        </div>
+
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="list_arrows">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Arrows
+                <span class="bi bi-unicode-list-nav-menu" aria-hidden="true"></span> Arrows
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
+        </div>
+
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="list_dingbats">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Dingbats
+                <span class="bi bi-unicode-list-nav-menu" aria-hidden="true"></span> Dingbats
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
+        </div>
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="list_emoticons">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Emoticons
+                <span class="bi bi-unicode-list-nav-menu" aria-hidden="true"></span> Emoticons
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
+        </div>
+
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="list_mapsymbols">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Map Symbols
+                <span class="bi bi-unicode-list-nav-menu" aria-hidden="true"></span> Map Symbols
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
+        </div>
+
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="list_supersubscripts">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Super/Sub-Scripts
+                <span class="bi bi-unicode-list-nav-menu" aria-hidden="true"></span> Super/Sub-Scripts
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
+        </div>
+
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="list_geometric">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Geometric
+                <span class="bi bi-unicode-list-nav-menu" aria-hidden="true"></span> Geometric
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
+        </div>
+
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="list_letters">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Letters
+                <span class="bi bi-unicode-list-nav-menu" aria-hidden="true"></span> Letters
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
+        </div>
+
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="list_punctuation">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Punctuation
+                <span class="bi bi-unicode-list-nav-menu" aria-hidden="true"></span> Punctuation
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
+        </div>
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="list_games">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Games
+                <span class="bi bi-unicode-list-nav-menu" aria-hidden="true"></span> Games
             </NavLink>
-        </li>
-        @*<li class="nav-item px-3">
-        <NavLink class="nav-link" href="settings">
-        <span class="oi oi-list-rich" aria-hidden="true"></span> Settings
-        </NavLink>
-        </li>*@
-    </ul>
+        </div>
+
+    </nav>
 </div>
 
 @code {
     private bool _collapseNavMenu = true;
 
-    //private string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
-    private string? NavMenuCssClass => _collapseNavMenu ? "collapse scrollable-nav" : "scrollable-nav";
+    private string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         _collapseNavMenu = !_collapseNavMenu;
     }
 }
+
+
+
