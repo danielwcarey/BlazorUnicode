@@ -1,0 +1,98 @@
+﻿@import url('app.css');
+
+@font-face {
+    font-family: "Cascadia Code NF";
+    src: url('lib/fonts/CascadiaCodeNF.woff2');
+}
+
+@font-face {
+    font-family: "Cascadia Mono NF";
+    src: url('fonts/CascadiaMonoNF.woff2');
+}
+
+html, body {
+    font-family: 'Cascadia Code NF';
+}
+
+/* Helper */
+.horizontal-rule-light {
+    display: inline-block;
+    border-bottom: thick white solid;
+    height: 1em;
+}
+
+.horizontal-rule-dark {
+    border-bottom: thick black solid;
+}
+
+
+/* Unicode Rendering */
+.UTable {
+    border: black thin solid;
+}
+
+    .UTable td {
+        border: gray thin dashed;
+    }
+
+.UTable-Title {
+    font-size: x-large;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.UTable-RowTitle {
+    min-width: 3em;
+    font-size: 1.5em;
+    text-align: center;
+    display: inline-block;
+}
+
+.UTable-ColumnTitle {
+    font-size: 1.5em;
+    text-align: center;
+    min-width: 3em;
+    display: inline-block;
+}
+
+.UData {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.UCode {
+    text-align: center;
+}
+
+.ULetter {
+    font-size: 2em;
+    text-align: center;
+    font-family: 'Cascadia Mono NF';
+}
+
+.UName {
+    font-size: .8em;
+}
+
+#loading {
+    font-size: 2em;
+    color: #007bff;
+    text-align: center;
+    margin-top: 20%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
