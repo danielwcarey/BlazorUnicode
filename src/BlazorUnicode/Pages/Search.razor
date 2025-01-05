@@ -1,22 +1,27 @@
 ﻿@page "/search"
-@inject UnicodeCharacterDatabase db
+@inject UnicodeCharacterDatabase Db
 <h3>Search</h3>
 <form>
     <div class="form-group">
         <label for="searchName">Search Name</label>
         <input type="text" class="form-control" id="searchName" placeholder="partial text" @bind="@SearchName" />
     </div>
+
     <div class="form-group">
         <label for="searchCharacter">Search Character</label>
         <input type="text" class="form-control" id="searchCharacter" placeholder="paste symbol, ex: λ" @bind="@SearchCharacter" />
     </div>
+
     <button @onclick="SearchUnicodeDatabase" @onclick:preventDefault>Search</button>
+
     <div class="horizontal-rule-dark"></div>
+
     <div>@Message</div>
+
     <div style="flex-flow:row;flex-wrap:wrap;">
         @foreach (var unicodeCharacter in UnicodeCharacterList)
         {
-            <div style="display:inline-block;max-width:5em;">
+            <div style="display:inline-block; padding:5px; text-align:center; max-width:12em; height:100%; border: thin black solid">
                 <CodePoint Code="@unicodeCharacter.CodePoint" ShowUnicodeName="true"></CodePoint>
             </div>
         }
@@ -28,7 +33,7 @@
     public string SearchName { get; set; } = "";
     public string SearchCharacter { get; set; } = "";
     public string Message { get; set; } = "";
-    public List<UnicodeCharacter> UnicodeCharacterList { get; set; } = new List<UnicodeCharacter>();
+    public List<UnicodeCharacter> UnicodeCharacterList { get; set; } = new();
 
     private void SearchUnicodeDatabase()
     {
@@ -40,9 +45,10 @@
         // SearchCharacter
         if (SearchCharacter.Length > 0)
         {
-
-            var searchCharacterFound =
-                db.List.Where(x => x.CodePoint == SearchCharacter[0]);
+            var searchCharacterFound = Db
+                .List
+                .Where(x => x.CodePoint == SearchCharacter[0])
+                .ToList();
 
             numberFound += searchCharacterFound.Count();
 
@@ -60,11 +66,12 @@
             var searchName = SearchName.ToLower();
 
             var searchNameFound =
-                db.List
+                Db.List
                 .Where(x =>
                     x.Name.ToLower().Contains(searchName) ||
                     x.RangeName.ToLower().Contains(searchName)
-                );
+                )
+                .ToList();
 
             numberFound += searchNameFound.Count();
 
@@ -76,13 +83,8 @@
             UnicodeCharacterList.AddRange(searchNameResult);
         }
 
-        if (numberFound > maxResultCount)
-        {
-            Message = $"Result list truncated to {maxResultCount}. Found {numberFound:N0} results.";
-        }
-        else
-        {
-            Message = "";
-        }
+        Message = numberFound > maxResultCount
+            ? $"Result list truncated to {maxResultCount}. Found {numberFound:N0} results."
+            : "";
     }
 }

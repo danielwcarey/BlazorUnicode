@@ -1,7 +1,8 @@
 ﻿@page "/browse"
 @using System.Globalization
 <h3>Browse</h3>
-@if (ShowInput) {
+@if (ShowInput)
+{
     <form>
         <div class="form-group">
             <label for="startCode">Start Code (hexadecimal)</label>
@@ -30,11 +31,14 @@
     </form>
     <div class="horizontal-rule-dark"></div>
     <h3>Quick Tables</h3>
-    @foreach (var group in UnicodeCharacterGroup.All.OrderBy(g => g.Name)) {
+    @foreach (var group in UnicodeCharacterGroup.All.OrderBy(g => g.Name))
+    {
         <button @onclick='@(_ => SelectGroup(group))'>@group.Name</button>
     }
 
-} else {
+}
+else
+{
     <form>
         <button @onclick="@CloseTable" @onclick:preventDefault>Close</button>
     </form>
@@ -49,11 +53,8 @@
     private string Title { get; set; } = "";
     private bool ShowUnicodeName { get; set; } = true;
 
-    protected override void OnInitialized() {
-        base.OnInitialized();
-    }
-
-    private void SelectGroup(UnicodeCharacterGroup group) {
+    private void SelectGroup(UnicodeCharacterGroup group)
+    {
         StartCodeLong = group.StartCode;
         ColumnCount = group.ColumnCount;
         Title = group.Name;
@@ -61,10 +62,10 @@
         this.StateHasChanged();
     }
 
-    private void BuildTable() {
-        long startCode = 0;
-
-        if (!long.TryParse(StartCode, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out startCode)) {
+    private void BuildTable()
+    {
+        if (!long.TryParse(StartCode, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var startCode))
+        {
             return;
         }
         StartCodeLong = startCode;
@@ -73,7 +74,8 @@
         this.StateHasChanged();
     }
 
-    private void CloseTable() {
+    private void CloseTable()
+    {
         ShowInput = true;
         this.StateHasChanged();
     }
