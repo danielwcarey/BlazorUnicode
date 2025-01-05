@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "Eb3y5cJh",
+  "version": "tzJG63JN",
   "assets": [
     {
       "hash": "sha256-sm01YK87cMSZA1TSapewk/b9QnFHCvaYzmgQeIyx9vI=",
@@ -146,8 +146,8 @@ self.assetsManifest = {
       "url": "_content/Microsoft.FluentUI.AspNetCore.Components/js/loading-theme.js"
     },
     {
-      "hash": "sha256-dG2V+YcTSyt9R0tOXXIsXZaOluQ5ppyobnrxENpcYHA=",
-      "url": "_framework/BlazorUnicode.cag0rognhy.wasm"
+      "hash": "sha256-OAWWTye+L1aJg/n3NUrrOsHyIRNo9SkhpuuIfDLy7SU=",
+      "url": "_framework/BlazorUnicode.svhh2dfger.wasm"
     },
     {
       "hash": "sha256-vMgg8PtVpoYMhRqzqryt4uc/nndCfAFwoGj3CM7yivk=",
@@ -278,7 +278,7 @@ self.assetsManifest = {
       "url": "_framework/System.Text.RegularExpressions.gl65p7jdfx.wasm"
     },
     {
-      "hash": "sha256-50dUAgJh7ANlWPpVc5I8ipeJZbkujH9Tm3LyZOFsPAE=",
+      "hash": "sha256-X8Qn2ZLlCsMlA08pb6Txqn+EOiUNJKoaJGK5sWJCgFs=",
       "url": "_framework/blazor.boot.json"
     },
     {
